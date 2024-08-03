@@ -1,34 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : EntityController
 {
-    public Vector3Int CellPosition;
-
-    private DungeonGridController _dungeonGridController;
-    private GridLayout GridLayout => _dungeonGridController.GridLayout;
-
-    private void Awake()
-    {
-        _dungeonGridController = FindObjectOfType<DungeonGridController>();
-    }
-
-    void Start()
-    {
-        SetCellPosition(GridLayout.WorldToCell(transform.position));
-    }
-
-
-    public void SetCellPosition(Vector3Int newCellPosition)
-    {
-        CellPosition = new Vector3Int(newCellPosition.x, newCellPosition.y, CellPosition.z);
-        SnapToCurrentCellPosition();
-    }
-
     private void MovePressed(Vector3Int axis)
     {
         var testPosition = CellPosition + axis;
-        if (!_dungeonGridController.IsCellPositionCollider(testPosition))
+        if (!DungeonGridController.IsCellPositionCollider(testPosition))
         {
             CellPosition += axis;
             SnapToCurrentCellPosition();
@@ -69,6 +47,6 @@ public class PlayerController : MonoBehaviour
 
     private void SnapToCurrentCellPosition()
     {
-        transform.position = _dungeonGridController.CellToWorldCentered(CellPosition);
+        transform.position = DungeonGridController.CellToWorldCentered(CellPosition);
     }
 }

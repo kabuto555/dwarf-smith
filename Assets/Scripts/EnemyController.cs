@@ -1,9 +1,9 @@
-using UnityEngine;
-
-public class EnemyController : MonoBehaviour
+public class EnemyController : EntityController
 {
-    private void Awake()
+    protected override void Start()
     {
-        // gameObject.layer = LayerMask.NameToLayer("Behind Mask");
+        base.Start();
+
+        DungeonGridController.RegisterEnemyController(this);
     }
 }

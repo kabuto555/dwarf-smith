@@ -2150,7 +2150,7 @@ Transform:
   m_GameObject: {fileID: 962081265}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: -1, z: 0}
+  m_LocalPosition: {x: 1.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2203,6 +2203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266c7af46fb8493f9bcd7ab261ce8e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CellPosition: {x: 1, y: -1, z: 0}
+  DebugSnapToGrid: 0
 --- !u!1 &1237024286 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9078242642736087389, guid: 03bc2640632dc4e7e9375582f8b85e23, type: 3}
@@ -2279,6 +2281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1237024288}
+  Enemies: []
 --- !u!1001 &1133621714569983701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2291,13 +2294,17 @@ PrefabInstance:
       propertyPath: GridLayout
       value: 
       objectReference: {fileID: 1517618720}
-    - target: {fileID: 1517347385954911554, guid: 03bc2640632dc4e7e9375582f8b85e23, type: 3}
-      propertyPath: m_LocalPosition.x
+    - target: {fileID: 1146119438824804069, guid: 03bc2640632dc4e7e9375582f8b85e23, type: 3}
+      propertyPath: DebugSnapToGrid
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1517347385954911554, guid: 03bc2640632dc4e7e9375582f8b85e23, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517347385954911554, guid: 03bc2640632dc4e7e9375582f8b85e23, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1517347385954911554, guid: 03bc2640632dc4e7e9375582f8b85e23, type: 3}
       propertyPath: m_LocalPosition.z

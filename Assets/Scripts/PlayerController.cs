@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetCellPosition(Vector3Int newCellPosition)
     {
-        CellPosition = newCellPosition;
+        CellPosition = new Vector3Int(newCellPosition.x, newCellPosition.y, CellPosition.z);
         SnapToCurrentCellPosition();
     }
 

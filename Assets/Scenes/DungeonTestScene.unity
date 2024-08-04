@@ -2323,7 +2323,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: CurrentBehaviour
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: Stats.AggroRange
@@ -2335,7 +2335,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: Stats.EnemyArchetype
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
+      propertyPath: Stats.PatrolPingPong
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
+      propertyPath: Stats.PatrolPath.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
+      propertyPath: Stats.PatrolPath.Array.data[0].x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
+      propertyPath: Stats.PatrolPath.Array.data[1].x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
+      propertyPath: Stats.PatrolPath.Array.data[1].y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
+      propertyPath: Stats.PatrolPath.Array.data[2].x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
+      propertyPath: Stats.PatrolPath.Array.data[2].y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
+      propertyPath: Stats.PatrolPath.Array.data[3].x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
+      propertyPath: Stats.PatrolPath.Array.data[3].y
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 1583660922181168081, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: m_Name

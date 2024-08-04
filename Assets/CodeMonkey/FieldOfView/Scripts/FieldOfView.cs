@@ -19,7 +19,7 @@ namespace CodeMonkey.FieldOfView
     public class FieldOfView : MonoBehaviour
     {
         [SerializeField] private GameObject DarkFieldObject;
-        [SerializeField] private LayerMask LayerMask;
+        public LayerMask LayerMask;
 
         public float FieldOfViewAngle = 90f;
         public float ViewDistance = 50f;

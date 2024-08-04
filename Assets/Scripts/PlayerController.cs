@@ -3,10 +3,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : EntityController
 {
+    public EntityStats Stats = new();
+    public override EntityStats CommonStats => Stats;
+
     private void MovePressed(Vector3Int axis)
     {
         var testPosition = CellPosition + axis;
-        if (!DungeonGridController.IsCellPositionCollider(testPosition))
+        if (!DungeonGridController.IsCellPositionCollider(testPosition, includeEnemies: true))
         {
             CellPosition += axis;
             SnapToCurrentCellPosition();

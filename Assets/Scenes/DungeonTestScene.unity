@@ -2079,9 +2079,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 962081267}
+  - component: {fileID: 962081269}
   - component: {fileID: 962081266}
   - component: {fileID: 962081268}
-  - component: {fileID: 962081269}
   m_Layer: 0
   m_Name: EnemyTest
   m_TagString: Untagged
@@ -2150,7 +2150,7 @@ Transform:
   m_GameObject: {fileID: 962081265}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: -0.5, z: 0}
+  m_LocalPosition: {x: 3.5, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2203,8 +2203,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266c7af46fb8493f9bcd7ab261ce8e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CellPosition: {x: 1, y: -1, z: 0}
+  CellPosition: {x: 3, y: -2, z: 0}
   DebugSnapToGrid: 0
+  Stats:
+    MoveRecovery: 0.75
+    EnemyArchetype: 0
+    EnemyAttitude: 2
+    AggroRange: 4
+    ChaseRange: 2
+  CurrentBehaviour: 0
 --- !u!1 &1237024286 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9078242642736087389, guid: 03bc2640632dc4e7e9375582f8b85e23, type: 3}
@@ -2294,10 +2301,6 @@ PrefabInstance:
       propertyPath: GridLayout
       value: 
       objectReference: {fileID: 1517618720}
-    - target: {fileID: 1146119438824804069, guid: 03bc2640632dc4e7e9375582f8b85e23, type: 3}
-      propertyPath: DebugSnapToGrid
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1517347385954911554, guid: 03bc2640632dc4e7e9375582f8b85e23, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5

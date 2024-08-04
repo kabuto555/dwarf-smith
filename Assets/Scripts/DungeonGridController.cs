@@ -13,6 +13,8 @@ public class DungeonGridController : MonoBehaviour
 
     private GridLayout _gridLayout;
     public GridLayout GridLayout => _gridLayout != null ? _gridLayout : GetComponent<GridLayout>();
+    public LayerMask FieldOfViewLayerMask => _fieldOfView.LayerMask;
+
     private TilemapCollider2D _tilemapCollider;
     private FieldOfView _fieldOfView;
 
@@ -30,8 +32,24 @@ public class DungeonGridController : MonoBehaviour
         _fieldOfView.Origin = Player.transform.position;
     }
 
-    public bool IsCellPositionCollider(Vector3Int cellPosition)
+    public bool IsCellPositionCollider(Vector3Int cellPosition, bool includePlayer = false, bool includeEnemies = false)
     {
+        if (includePlayer && cellPosition == Player.CellPosition)
+        {
+            return true;
+        }
+
+        if (includeEnemies)
+        {
+            foreach (var enemy in Enemies)
+            {
+                if (cellPosition == enemy.CellPosition)
+                {
+                    return true;
+                }
+            }
+        }
+
         return _tilemapCollider.OverlapPoint(CellToWorldCentered(cellPosition));
     }
 

@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1517347385954911554}
-  - component: {fileID: 1908339374753492727}
   - component: {fileID: 1146119438824804069}
+  - component: {fileID: 1908339374753492727}
   - component: {fileID: 7001141851540841135}
   m_Layer: 0
   m_Name: Player
@@ -34,6 +34,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1146119438824804069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9078242642736087389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66938e7b185f842818299ac37b1d82e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CellPosition: {x: 0, y: 0, z: 0}
+  DebugSnapToGrid: 0
+  Stats:
+    MoveRecovery: 0
 --- !u!212 &1908339374753492727
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -86,20 +102,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1146119438824804069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9078242642736087389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66938e7b185f842818299ac37b1d82e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GridLayout: {fileID: 0}
-  CellPosition: {x: 0, y: 0}
 --- !u!114 &7001141851540841135
 MonoBehaviour:
   m_ObjectHideFlags: 0

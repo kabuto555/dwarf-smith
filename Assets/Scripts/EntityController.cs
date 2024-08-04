@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EntityController : MonoBehaviour
@@ -37,7 +38,78 @@ public class EntityController : MonoBehaviour
         return raycastHit2D.collider == null;
     }
 
-    private void OnValidate()
+    public void MoveToTarget(Vector3Int targetCell, bool collidesWithPlayer = true, bool collidesWithEnemies = true)
+    {
+        var delta = targetCell - CellPosition;
+        var isXBiggerThanY = Mathf.Abs(delta.x) != Mathf.Abs(delta.y) ? Mathf.Abs(delta.x) >= Mathf.Abs(delta.y) : Random.value > 0.5f;
+        Vector3Int determinedDelta;
+
+        if (isXBiggerThanY)
+        {
+            determinedDelta = new Vector3Int((int)Mathf.Sign(delta.x), 0);
+        }
+        else
+        {
+            determinedDelta = new Vector3Int(0, (int)Mathf.Sign(delta.y));
+        }
+
+        var newCellPosition = CellPosition + determinedDelta;
+
+        if (!DungeonGridController.IsCellPositionCollider(newCellPosition, includePlayer: collidesWithPlayer, includeEnemies: collidesWithEnemies))
+        {
+            SetCellPosition(newCellPosition);
+        }
+        else if (isXBiggerThanY && Mathf.Abs(delta.y) > 0) // Check if there is a Y direction component worth testing for movement
+        {
+            determinedDelta = new Vector3Int(0, (int)Mathf.Sign(delta.y));
+            newCellPosition = CellPosition + determinedDelta;
+
+            if (!DungeonGridController.IsCellPositionCollider(newCellPosition, includePlayer: collidesWithPlayer, includeEnemies: collidesWithEnemies))
+            {
+                SetCellPosition(newCellPosition);
+            }
+        }
+        else if (!isXBiggerThanY && Mathf.Abs(delta.x) > 0) // Check if there is a X direction component worth testing for movement
+        {
+            determinedDelta = new Vector3Int((int)Mathf.Sign(delta.x), 0);
+            newCellPosition = CellPosition + determinedDelta;
+
+            if (!DungeonGridController.IsCellPositionCollider(newCellPosition, includePlayer: collidesWithPlayer, includeEnemies: collidesWithEnemies))
+            {
+                SetCellPosition(newCellPosition);
+            }
+        }
+    }
+
+    public void MoveRandomDirection(bool collidesWithPlayer = true, bool collidesWithEnemies = true)
+    {
+        var adjacentCells = new List<Vector3Int>
+        {
+            CellPosition + Vector3Int.up,
+            CellPosition + Vector3Int.down,
+            CellPosition + Vector3Int.left,
+            CellPosition + Vector3Int.right
+        };
+
+        var freeCells = new List<Vector3Int>(4);
+        foreach (var cell in adjacentCells)
+        {
+            if (!DungeonGridController.IsCellPositionCollider(cell, collidesWithPlayer, collidesWithEnemies))
+            {
+                freeCells.Add(cell);
+            }
+        }
+
+        if (freeCells.Count == 0)
+        {
+            return;
+        }
+
+        var randomIndex = Random.Range(0, freeCells.Count);
+        SetCellPosition(freeCells[randomIndex]);
+    }
+
+    protected virtual void OnValidate()
     {
         if (DebugSnapToGrid)
         {

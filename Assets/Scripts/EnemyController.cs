@@ -1,5 +1,4 @@
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class EnemyController : EntityController
 {
@@ -25,7 +24,40 @@ public class EnemyController : EntityController
     {
         base.Start();
 
+        CorrectBehaviourFromArchetype();
         DungeonGridController.RegisterEnemyController(this);
+    }
+
+    protected override void OnValidate()
+    {
+        base.OnValidate();
+
+        CorrectBehaviourFromArchetype();
+    }
+
+    private void CorrectBehaviourFromArchetype()
+    {
+        switch (Archetype)
+        {
+            case EnemyStats.Archetype.Guard:
+                if (CurrentBehaviour == Behaviour.MeanderUntilAggroRange || CurrentBehaviour == Behaviour.PatrolUntilAggroRange)
+                {
+                    CurrentBehaviour = Behaviour.StandUntilAggroRange;
+                }
+                break;
+            case EnemyStats.Archetype.Wanderer:
+                if (CurrentBehaviour == Behaviour.StandUntilAggroRange || CurrentBehaviour == Behaviour.PatrolUntilAggroRange)
+                {
+                    CurrentBehaviour = Behaviour.MeanderUntilAggroRange;
+                }
+                break;
+            case EnemyStats.Archetype.Patroller:
+                if (CurrentBehaviour == Behaviour.StandUntilAggroRange || CurrentBehaviour == Behaviour.MeanderUntilAggroRange)
+                {
+                    CurrentBehaviour = Behaviour.PatrolUntilAggroRange;
+                }
+                break;
+        }
     }
 
     private void Update()
@@ -49,48 +81,7 @@ public class EnemyController : EntityController
     }
 
     // TODO: refactor to base class EntityController for reuse (ex: knockback cases)
-    private void MoveToTarget(Vector3Int targetCell)
-    {
-        var delta = targetCell - CellPosition;
-        var isXBiggerThanY = Mathf.Abs(delta.x) != Mathf.Abs(delta.y) ? Mathf.Abs(delta.x) >= Mathf.Abs(delta.y) : Random.value > 0.5f;
-        Vector3Int determinedDelta;
 
-        if (isXBiggerThanY)
-        {
-            determinedDelta = new Vector3Int((int)Mathf.Sign(delta.x), 0);
-        }
-        else
-        {
-            determinedDelta = new Vector3Int(0, (int)Mathf.Sign(delta.y));
-        }
-
-        var newCellPosition = CellPosition + determinedDelta;
-
-        if (!DungeonGridController.IsCellPositionCollider(newCellPosition, includePlayer: true))
-        {
-            SetCellPosition(newCellPosition);
-        }
-        else if (isXBiggerThanY && Mathf.Abs(delta.y) > 0) // Check if there is a Y direction component worth testing for movement
-        {
-            determinedDelta = new Vector3Int(0, (int)Mathf.Sign(delta.y));
-            newCellPosition = CellPosition + determinedDelta;
-
-            if (!DungeonGridController.IsCellPositionCollider(newCellPosition, includePlayer: true))
-            {
-                SetCellPosition(newCellPosition);
-            }
-        }
-        else if (!isXBiggerThanY && Mathf.Abs(delta.x) > 0) // Check if there is a X direction component worth testing for movement
-        {
-            determinedDelta = new Vector3Int((int)Mathf.Sign(delta.x), 0);
-            newCellPosition = CellPosition + determinedDelta;
-
-            if (!DungeonGridController.IsCellPositionCollider(newCellPosition, includePlayer: true))
-            {
-                SetCellPosition(newCellPosition);
-            }
-        }
-    }
 
     private void DoMoveStep()
     {
@@ -99,7 +90,6 @@ public class EnemyController : EntityController
 
         switch (CurrentBehaviour)
         {
-            case Behaviour.MeanderUntilAggroRange: // TODO: implement different
             case Behaviour.PatrolUntilAggroRange: // TODO: implement different
             case Behaviour.StandUntilAggroRange:
                 if (hasSightAggro && Attitude == EnemyStats.Attitude.Hostile)
@@ -107,6 +97,17 @@ public class EnemyController : EntityController
                     _aggroStartCellPosition = CellPosition;
                     CurrentBehaviour = Behaviour.ChaseUntilOutOfRange;
                     MoveToTarget(DungeonGridController.Player.CellPosition);
+                }
+                break;
+            case Behaviour.MeanderUntilAggroRange:
+                if (hasSightAggro && Attitude == EnemyStats.Attitude.Hostile)
+                {
+                    CurrentBehaviour = Behaviour.ChaseUntilOutOfRange;
+                    MoveToTarget(DungeonGridController.Player.CellPosition);
+                }
+                else
+                {
+                    MoveRandomDirection();
                 }
                 break;
             case Behaviour.ChaseUntilOutOfRange:

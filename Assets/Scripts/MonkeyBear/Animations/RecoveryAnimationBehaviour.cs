@@ -10,6 +10,7 @@ namespace MonkeyBear.Animations
         {
             animator.ResetTrigger(TriggerName);
             animator.SetBool(EntityController.AnimParamIsAttacking, false);
+            animator.SendMessage("OnRecoveryExit");
         }
     }
 }

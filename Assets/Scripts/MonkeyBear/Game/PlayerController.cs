@@ -10,6 +10,7 @@ namespace MonkeyBear.Game
         public override EntityStats CommonStats => Stats;
 
         [SerializeField] private ActionIndicator ActionIndicator;
+        [SerializeField] private WeaponBehaviour RightWeapon;
 
         protected override void Start()
         {
@@ -38,8 +39,8 @@ namespace MonkeyBear.Game
         {
             if (context.performed)
             {
-                MovePressed(Vector3Int.up);
                 SetAimDirection(1);
+                MovePressed(Vector3Int.up);
             }
         }
 
@@ -47,8 +48,8 @@ namespace MonkeyBear.Game
         {
             if (context.performed)
             {
-                MovePressed(Vector3Int.down);
                 SetAimDirection(3);
+                MovePressed(Vector3Int.down);
             }
         }
 
@@ -56,8 +57,8 @@ namespace MonkeyBear.Game
         {
             if (context.performed)
             {
-                MovePressed(Vector3Int.left);
                 SetAimDirection(2);
+                MovePressed(Vector3Int.left);
             }
         }
 
@@ -65,8 +66,8 @@ namespace MonkeyBear.Game
         {
             if (context.performed)
             {
-                MovePressed(Vector3Int.right);
                 SetAimDirection(0);
+                MovePressed(Vector3Int.right);
             }
         }
 
@@ -86,8 +87,19 @@ namespace MonkeyBear.Game
         {
             if (context.performed)
             {
+                AttackingWeapon = RightWeapon;
+                RightWeapon.StartAttack(OnRightHandAttackHit);
                 Animator.SetTrigger(AnimParamRSwing);
             }
+        }
+
+        public void OnRightHandAttackHit(EntityController otherEntity)
+        {
+            var damagePayload = new DamagePayload()
+            {
+                Physical = 10
+            };
+            otherEntity.OnReceivedDamage(damagePayload);
         }
     }
 }

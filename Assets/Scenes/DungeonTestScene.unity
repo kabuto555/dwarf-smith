@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 311099277}
   - component: {fileID: 311099276}
   - component: {fileID: 311099278}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1785,7 +1785,7 @@ TilemapCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1814,7 +1814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: Stats.AggroRange
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: Stats.EnemyAttitude
@@ -2149,7 +2149,7 @@ MonoBehaviour:
   DarkFieldObject: {fileID: 15078350}
   LayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 8
   FieldOfViewAngle: 360
   ViewDistance: 20
   RayCount: 800
@@ -2241,6 +2241,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
+      propertyPath: CellPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: CellPosition.y
       value: -1
       objectReference: {fileID: 0}
@@ -2250,11 +2254,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: CurrentBehaviour
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: Stats.AggroRange
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: Stats.EnemyAttitude
@@ -2262,7 +2266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: Stats.EnemyArchetype
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1583660922181168081, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: m_Name
@@ -2270,7 +2274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5522504409763657069, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.5
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 5522504409763657069, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2308,10 +2312,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6764043591707629117, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2331,7 +2331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: Stats.AggroRange
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 691843944558089895, guid: e8b0d94d555ec4bc6b6373a10fd55c48, type: 3}
       propertyPath: Stats.EnemyAttitude

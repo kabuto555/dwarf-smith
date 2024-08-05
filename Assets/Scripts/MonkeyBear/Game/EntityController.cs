@@ -8,18 +8,20 @@ namespace MonkeyBear.Game
     public class EntityController : MonoBehaviour
     {
         public const string AnimParamIsAttacking = "IsAttacking";
+        public const string AnimParamIsFrameAttackValid = "IsFrameAttackValid";
         protected const string AnimParamAim = "Aim";
         protected const string AnimParamRSwing = "R_Swing";
 
         [SerializeField] protected Animator Animator;
 
+        public Faction Faction;
         public virtual EntityStats CommonStats { get; set; }
         public Vector3Int CellPosition;
-        public int AimCellDirection;
+        public bool DebugSnapToGrid;
 
         protected DungeonGridController DungeonGridController => DungeonGridController.Instance != null ? DungeonGridController.Instance : FindObjectOfType<DungeonGridController>();
         protected GridLayout GridLayout => DungeonGridController.GridLayout;
-        public bool DebugSnapToGrid;
+        protected WeaponBehaviour AttackingWeapon;
 
         protected virtual void Start()
         {
@@ -118,6 +120,32 @@ namespace MonkeyBear.Game
 
             var randomIndex = Random.Range(0, freeCells.Count);
             SetCellPosition(freeCells[randomIndex]);
+        }
+
+        public void OnReceivedDamage(DamagePayload damagePayload)
+        {
+            GetComponent<SpriteRenderer>().color = Random.ColorHSV();
+        }
+
+        protected virtual void OnActiveAttackFramesStarted()
+        {
+            if (AttackingWeapon != null)
+            {
+                AttackingWeapon.IsAttackFrameValid = true;
+            }
+        }
+
+        protected virtual void OnActiveAttackFramesEnded()
+        {
+            if (AttackingWeapon != null)
+            {
+                AttackingWeapon.IsAttackFrameValid = false;
+            }
+        }
+
+        protected virtual void OnRecoveryExit()
+        {
+            AttackingWeapon = null;
         }
 
         protected virtual void Update()

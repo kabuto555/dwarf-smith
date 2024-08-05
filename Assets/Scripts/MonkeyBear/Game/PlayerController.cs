@@ -9,6 +9,16 @@ namespace MonkeyBear.Game
         public EntityStats Stats = new();
         public override EntityStats CommonStats => Stats;
 
+        [SerializeField] private ActionIndicator ActionIndicator;
+
+        protected override void Start()
+        {
+            base.Start();
+
+            ActionIndicator.gameObject.SetActive(false);
+            ActionIndicator.IndicatorColor = Color.yellow;
+        }
+
         private void MovePressed(Vector3Int axis)
         {
             if (Animator.GetBool(AnimParamIsAttacking))
@@ -29,7 +39,7 @@ namespace MonkeyBear.Game
             if (context.performed)
             {
                 MovePressed(Vector3Int.up);
-                Animator.SetInteger(AnimParamAim, 1);
+                SetAimDirection(1);
             }
         }
 
@@ -38,7 +48,7 @@ namespace MonkeyBear.Game
             if (context.performed)
             {
                 MovePressed(Vector3Int.down);
-                Animator.SetInteger(AnimParamAim, 3);
+                SetAimDirection(3);
             }
         }
 
@@ -47,7 +57,7 @@ namespace MonkeyBear.Game
             if (context.performed)
             {
                 MovePressed(Vector3Int.left);
-                Animator.SetInteger(AnimParamAim, 2);
+                SetAimDirection(2);
             }
         }
 
@@ -56,8 +66,20 @@ namespace MonkeyBear.Game
             if (context.performed)
             {
                 MovePressed(Vector3Int.right);
-                Animator.SetInteger(AnimParamAim, 0);
+                SetAimDirection(0);
             }
+        }
+
+        private void SetAimDirection(int cellDirection)
+        {
+            if (cellDirection < 0 || cellDirection > 3)
+            {
+                return;
+            }
+
+            Animator.SetInteger(AnimParamAim, cellDirection);
+            ActionIndicator.gameObject.SetActive(true);
+            ActionIndicator.SetAimDirection(cellDirection);
         }
 
         public void RightHandAttack(InputAction.CallbackContext context)

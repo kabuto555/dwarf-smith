@@ -8,6 +8,11 @@ public class PlayerController : EntityController
 
     private void MovePressed(Vector3Int axis)
     {
+        if (Animator.GetBool(AnimParamIsAttacking))
+        {
+            return;
+        }
+
         var testPosition = CellPosition + axis;
         if (!DungeonGridController.IsCellPositionCollider(testPosition, includeEnemies: true))
         {

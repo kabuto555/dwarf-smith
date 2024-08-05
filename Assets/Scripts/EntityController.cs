@@ -4,6 +4,7 @@ using Random = UnityEngine.Random;
 
 public class EntityController : MonoBehaviour
 {
+    public const string AnimParamIsAttacking = "IsAttacking";
     protected const string AnimParamAim = "Aim";
     protected const string AnimParamRSwing = "R_Swing";
 

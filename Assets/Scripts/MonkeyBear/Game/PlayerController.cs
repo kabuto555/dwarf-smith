@@ -87,12 +87,11 @@ namespace MonkeyBear.Game
         {
             if (context.performed)
             {
-                AttackingWeapon = RightWeapon;
-                RightWeapon.StartAttack(OnRightHandAttackHit);
-                Animator.SetTrigger(AnimParamRSwing);
+                PerformWeaponAttack(RightWeapon, OnRightHandAttackHit);
             }
         }
 
+        // TODO:  Refactor into WeaponBehaviour? + weapon stats? + entity stats?
         public void OnRightHandAttackHit(EntityController otherEntity)
         {
             var damagePayload = new DamagePayload()

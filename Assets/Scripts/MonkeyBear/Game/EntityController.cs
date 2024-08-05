@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MonkeyBear.Model;
 using UnityEngine;
@@ -125,6 +126,13 @@ namespace MonkeyBear.Game
         public void OnReceivedDamage(DamagePayload damagePayload)
         {
             GetComponent<SpriteRenderer>().color = Random.ColorHSV();
+        }
+
+        protected void PerformWeaponAttack(WeaponBehaviour weaponBehaviour, Action<EntityController> onHitCallback)
+        {
+            AttackingWeapon = weaponBehaviour;
+            weaponBehaviour.StartAttack(onHitCallback);
+            Animator.SetTrigger(AnimParamRSwing);
         }
 
         protected virtual void OnActiveAttackFramesStarted()

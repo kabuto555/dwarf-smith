@@ -1,6 +1,7 @@
+using MonkeyBear.Game;
 using UnityEngine;
 
-namespace Animations
+namespace MonkeyBear.Animations
 {
     public class StartUpAnimationBehaviour : StateMachineBehaviour
     {

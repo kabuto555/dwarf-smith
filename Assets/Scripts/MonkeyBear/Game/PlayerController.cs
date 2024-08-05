@@ -1,72 +1,76 @@
+using MonkeyBear.Model;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : EntityController
+namespace MonkeyBear.Game
 {
-    public EntityStats Stats = new();
-    public override EntityStats CommonStats => Stats;
-
-    private void MovePressed(Vector3Int axis)
+    public class PlayerController : EntityController
     {
-        if (Animator.GetBool(AnimParamIsAttacking))
+        public EntityStats Stats = new();
+        public override EntityStats CommonStats => Stats;
+
+        private void MovePressed(Vector3Int axis)
         {
-            return;
+            if (Animator.GetBool(AnimParamIsAttacking))
+            {
+                return;
+            }
+
+            var testPosition = CellPosition + axis;
+            if (!DungeonGridController.IsCellPositionCollider(testPosition, includeEnemies: true))
+            {
+                CellPosition += axis;
+                SnapToCurrentCellPosition();
+            }
         }
 
-        var testPosition = CellPosition + axis;
-        if (!DungeonGridController.IsCellPositionCollider(testPosition, includeEnemies: true))
+        public void MoveUp(InputAction.CallbackContext context)
         {
-            CellPosition += axis;
-            SnapToCurrentCellPosition();
+            if (context.performed)
+            {
+                MovePressed(Vector3Int.up);
+                Animator.SetInteger(AnimParamAim, 1);
+            }
         }
-    }
 
-    public void MoveUp(InputAction.CallbackContext context)
-    {
-        if (context.performed)
+        public void MoveDown(InputAction.CallbackContext context)
         {
-            MovePressed(Vector3Int.up);
-            Animator.SetInteger(AnimParamAim, 1);
+            if (context.performed)
+            {
+                MovePressed(Vector3Int.down);
+                Animator.SetInteger(AnimParamAim, 3);
+            }
         }
-    }
 
-    public void MoveDown(InputAction.CallbackContext context)
-    {
-        if (context.performed)
+        public void MoveLeft(InputAction.CallbackContext context)
         {
-            MovePressed(Vector3Int.down);
-            Animator.SetInteger(AnimParamAim, 3);
+            if (context.performed)
+            {
+                MovePressed(Vector3Int.left);
+                Animator.SetInteger(AnimParamAim, 2);
+            }
         }
-    }
 
-    public void MoveLeft(InputAction.CallbackContext context)
-    {
-        if (context.performed)
+        public void MoveRight(InputAction.CallbackContext context)
         {
-            MovePressed(Vector3Int.left);
-            Animator.SetInteger(AnimParamAim, 2);
+            if (context.performed)
+            {
+                MovePressed(Vector3Int.right);
+                Animator.SetInteger(AnimParamAim, 0);
+            }
         }
-    }
 
-    public void MoveRight(InputAction.CallbackContext context)
-    {
-        if (context.performed)
+        public void RightHandAttack(InputAction.CallbackContext context)
         {
-            MovePressed(Vector3Int.right);
-            Animator.SetInteger(AnimParamAim, 0);
+            if (context.performed)
+            {
+                Animator.SetTrigger(AnimParamRSwing);
+            }
         }
-    }
 
-    public void RightHandAttack(InputAction.CallbackContext context)
-    {
-        if (context.performed)
+        private void SnapToCurrentCellPosition()
         {
-            Animator.SetTrigger(AnimParamRSwing);
+            transform.position = DungeonGridController.CellToWorldCentered(CellPosition);
         }
-    }
-
-    private void SnapToCurrentCellPosition()
-    {
-        transform.position = DungeonGridController.CellToWorldCentered(CellPosition);
     }
 }

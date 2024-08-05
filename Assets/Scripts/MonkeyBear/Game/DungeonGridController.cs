@@ -3,64 +3,67 @@ using CodeMonkey.FieldOfView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(GridLayout))]
-public class DungeonGridController : MonoBehaviour
+namespace MonkeyBear.Game
 {
-    public static DungeonGridController Instance;
-
-    public PlayerController Player;
-    public List<EnemyController> Enemies = new();
-
-    private GridLayout _gridLayout;
-    public GridLayout GridLayout => _gridLayout != null ? _gridLayout : GetComponent<GridLayout>();
-    public LayerMask FieldOfViewLayerMask => _fieldOfView.LayerMask;
-
-    private TilemapCollider2D _tilemapCollider;
-    private FieldOfView _fieldOfView;
-
-    private void Awake()
+    [RequireComponent(typeof(GridLayout))]
+    public class DungeonGridController : MonoBehaviour
     {
-        Instance = this;
+        public static DungeonGridController Instance;
 
-        _gridLayout = GetComponent<GridLayout>();
-        _tilemapCollider = GetComponentInChildren<TilemapCollider2D>(true);
-        _fieldOfView = GetComponentInChildren<FieldOfView>(true);
-    }
+        public PlayerController Player;
+        public List<EnemyController> Enemies = new();
 
-    private void Update()
-    {
-        _fieldOfView.Origin = Player.transform.position;
-    }
+        private GridLayout _gridLayout;
+        public GridLayout GridLayout => _gridLayout != null ? _gridLayout : GetComponent<GridLayout>();
+        public LayerMask FieldOfViewLayerMask => _fieldOfView.LayerMask;
 
-    public bool IsCellPositionCollider(Vector3Int cellPosition, bool includePlayer = false, bool includeEnemies = false)
-    {
-        if (includePlayer && cellPosition == Player.CellPosition)
+        private TilemapCollider2D _tilemapCollider;
+        private FieldOfView _fieldOfView;
+
+        private void Awake()
         {
-            return true;
+            Instance = this;
+
+            _gridLayout = GetComponent<GridLayout>();
+            _tilemapCollider = GetComponentInChildren<TilemapCollider2D>(true);
+            _fieldOfView = GetComponentInChildren<FieldOfView>(true);
         }
 
-        if (includeEnemies)
+        private void Update()
         {
-            foreach (var enemy in Enemies)
+            _fieldOfView.Origin = Player.transform.position;
+        }
+
+        public bool IsCellPositionCollider(Vector3Int cellPosition, bool includePlayer = false, bool includeEnemies = false)
+        {
+            if (includePlayer && cellPosition == Player.CellPosition)
             {
-                if (cellPosition == enemy.CellPosition)
+                return true;
+            }
+
+            if (includeEnemies)
+            {
+                foreach (var enemy in Enemies)
                 {
-                    return true;
+                    if (cellPosition == enemy.CellPosition)
+                    {
+                        return true;
+                    }
                 }
             }
+
+            return _tilemapCollider.OverlapPoint(CellToWorldCentered(cellPosition));
         }
 
-        return _tilemapCollider.OverlapPoint(CellToWorldCentered(cellPosition));
-    }
+        public Vector3 CellToWorldCentered(Vector3Int cellPosition)
+        {
+            var cellCenter = GridLayout.GetLayoutCellCenter();
+            return GridLayout.CellToWorld(cellPosition) + new Vector3(cellCenter.x, cellCenter.y);
+        }
 
-    public Vector3 CellToWorldCentered(Vector3Int cellPosition)
-    {
-        var cellCenter = GridLayout.GetLayoutCellCenter();
-        return GridLayout.CellToWorld(cellPosition) + new Vector3(cellCenter.x, cellCenter.y);
-    }
-
-    public void RegisterEnemyController(EnemyController enemy)
-    {
-        Enemies.Add(enemy);
+        public void RegisterEnemyController(EnemyController enemy)
+        {
+            Enemies.Add(enemy);
+        }
     }
 }

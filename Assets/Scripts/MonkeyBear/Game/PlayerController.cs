@@ -29,8 +29,8 @@ namespace MonkeyBear.Game
             var testPosition = CellPosition + axis;
             if (!DungeonGridController.IsCellPositionCollider(testPosition, includeEnemies: true))
             {
-                CellPosition += axis;
-                SnapToCurrentCellPosition();
+                SetCellPosition(CellPosition + axis);
+                ActionIndicator.IndicateMovement();
             }
         }
 
@@ -88,11 +88,6 @@ namespace MonkeyBear.Game
             {
                 Animator.SetTrigger(AnimParamRSwing);
             }
-        }
-
-        private void SnapToCurrentCellPosition()
-        {
-            transform.position = DungeonGridController.CellToWorldCentered(CellPosition);
         }
     }
 }

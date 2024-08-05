@@ -21,6 +21,7 @@ public class PlayerController : EntityController
         if (context.performed)
         {
             MovePressed(Vector3Int.up);
+            Animator.SetInteger(AnimParamAim, 1);
         }
     }
 
@@ -29,6 +30,7 @@ public class PlayerController : EntityController
         if (context.performed)
         {
             MovePressed(Vector3Int.down);
+            Animator.SetInteger(AnimParamAim, 3);
         }
     }
 
@@ -37,6 +39,7 @@ public class PlayerController : EntityController
         if (context.performed)
         {
             MovePressed(Vector3Int.left);
+            Animator.SetInteger(AnimParamAim, 2);
         }
     }
 
@@ -45,6 +48,15 @@ public class PlayerController : EntityController
         if (context.performed)
         {
             MovePressed(Vector3Int.right);
+            Animator.SetInteger(AnimParamAim, 0);
+        }
+    }
+
+    public void RightHandAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Animator.SetTrigger(AnimParamRSwing);
         }
     }
 

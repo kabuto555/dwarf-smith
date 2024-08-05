@@ -62,8 +62,10 @@ public class EnemyController : EntityController
         }
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (CommonStats.LastMovedTime == 0)
         {
             CommonStats.LastMovedTime = Time.time;

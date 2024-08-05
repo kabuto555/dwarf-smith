@@ -62,6 +62,5 @@ public class DungeonGridController : MonoBehaviour
     public void RegisterEnemyController(EnemyController enemy)
     {
         Enemies.Add(enemy);
-        enemy.gameObject.layer = LayerMask.NameToLayer("Behind Mask");
     }
 }

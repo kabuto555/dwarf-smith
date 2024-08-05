@@ -1,10 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EntityController : MonoBehaviour
 {
-    public Vector3Int CellPosition;
+    protected const string AnimParamAim = "Aim";
+    protected const string AnimParamRSwing = "R_Swing";
+
+    [SerializeField] protected Animator Animator;
+
     public virtual EntityStats CommonStats { get; set; }
+    public Vector3Int CellPosition;
+    public int AimCellDirection;
 
     protected DungeonGridController DungeonGridController => DungeonGridController.Instance != null ? DungeonGridController.Instance : FindObjectOfType<DungeonGridController>();
     protected GridLayout GridLayout => DungeonGridController.GridLayout;
@@ -107,6 +114,10 @@ public class EntityController : MonoBehaviour
 
         var randomIndex = Random.Range(0, freeCells.Count);
         SetCellPosition(freeCells[randomIndex]);
+    }
+
+    protected virtual void Update()
+    {
     }
 
     protected virtual void OnValidate()
